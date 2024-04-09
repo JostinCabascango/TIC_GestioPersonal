@@ -7,7 +7,7 @@ def hello(request):
 
 
 def about(request):
-    return HttpResponse("<strong>About</strong>")
+    return render(request, "Centre/about.html", {})
 
 
 def index(request):
@@ -15,3 +15,11 @@ def index(request):
         "teacher": {"name": "John", "lastname": "Doe", "age": 25},
     }
     return render(request, "Centre/index.html", context)
+
+
+def students(request):
+    pass
+
+
+def teacher(request):
+    pass
