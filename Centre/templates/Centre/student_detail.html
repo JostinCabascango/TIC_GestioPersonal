@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} Student {{ student.id }} {% endblock %}
+{% block content %}
+    <div>
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Student Information </h3>
+            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Student details</p>
+        </div>
+        <div class="mt-6 border-t border-gray-100">
+            <dl class="divide-y divide-gray-100">
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">First Name</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.name }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Last Name</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.lastname1 }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Last Name 2</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.lastname2 }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Email</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.email }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Course</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.course }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Modules</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.modules }}</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+{% endblock %}

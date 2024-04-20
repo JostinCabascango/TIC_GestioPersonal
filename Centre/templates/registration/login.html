@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                 alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
+                account</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div>
+                        <label for="{{ field.id_for_label }}"
+                               class="block text-sm font-medium leading-6 text-gray-900">{{ field.label }}</label>
+                        <div class="mt-2">
+                            <input id="{{ field.auto_id }}" name="{{ field.html_name }}"
+                                   type="{{ field.field.widget.input_type }}" autocomplete="{{ field.html_name }}"
+                                   required
+                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   value="{{ field.value|default_if_none:'' }}">
+                        </div>
+                        {% if field.errors %}
+                            <div class="mt-5 mb-5 p-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                                 role="alert">
+                                <strong class="font-bold">Error!</strong>
+                                <span class="block sm:inline">{{ field.errors.0 }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <!-- Si la autenticación falla , se muestra un mensaje de error -->
+                {% if form.errors %}
+                    <div class="mt-5 mb-5 p-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                         role="alert">
+                        <strong class="font-bold">Error!</strong>
+                        <span class="block sm:inline">El usuario o la contraseña son incorrectos.</span>
+                    </div>
+                {% endif %}
+                <div>
+                    <button type="submit"
+                            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6">
+                <div class="flex justify-center items-center bg-gray-50 py-4 px-4 shadow rounded-lg">
+                    <p class="text-center text-gray-500">
+                        ¿No tienes una cuenta?
+                    </p>
+                    <a href="{% url 'register' %}" class="ml-2 text-indigo-600 hover:text-indigo-500 underline">
+                        Regístrate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

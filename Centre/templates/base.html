@@ -18,28 +18,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--Inter Font-->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>
-<body class="bg-gray-200">
-<header class="bg-blue-500 text-white py-4 px-8">
-    <nav class="container mx-auto flex justify-between items-center">
-        <a href="{% url 'index' %}" class="mr-4 hover:underline nav-link">Home</a>
-        <a href="{% url 'about' %}" class="mr-4 hover:underline nav-link">About</a>
-        <a href="{% url 'students' %}" class="hover:underline nav-link">Students</a>
-        <a href="{% url 'teachers' %}" class="hover:underline nav-link">Teachers</a>
-        <a href="{% url 'admin:index' %}" class="hover:underline nav-link">Admin</a>
-
-    </nav>
-</header>
-
-<main class="container mx-auto p-8">
+<body class="bg-gray-100">
+<!-- Navbar -->
+{% include 'partials/navbar.html' %}
+<!-- Content -->
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded shadow mt-4 py-6">
     {% block content %}
     {% endblock %}
 </main>
-
-<footer class="bg-blue-500 text-white py-4 px-8 mt-4">
-    <div class="container mx-auto text-center">
-        &copy; 2023 by TIC Gestio Personal. All rights reserved.
-    </div>
-</footer>
+<!-- Footer -->
+{% include 'partials/footer.html' %}
 </body>
 </html>

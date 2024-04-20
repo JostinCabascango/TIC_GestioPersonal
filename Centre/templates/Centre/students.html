@@ -1,33 +1,49 @@
 {% extends "base.html" %}
-
+{% block title %} Students {% endblock %}
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-4 text-indigo-600">Students</h1>
-    <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
-        <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
-            <thead>
-            <tr class="text-left">
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Name</th>
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname1</th>
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname2</th>
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Email</th>
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Course</th>
-                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Modules</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for student in students %}
-                <tr>
-                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.name }}</td>
-                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.lastname1 }}</td>
-                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.lastname2 }}</td>
-                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.email }}</td>
-                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.course }}</td>
-                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.modules }}</td>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-4 text-indigo-600">Students</h1>
+        <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
+            <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+                <thead>
+                <tr class="text-left">
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Name</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname1</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname2</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Email</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Course</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Modules</th>
+                    <!--Actions-->
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Actions</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr class="transition-colors duration-300 hover:bg-gray-200">
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.name }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.lastname1 }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.lastname2 }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.email }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.course }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ student.modules }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2 flex justify-around">
+                            <a href="{% url 'students.edit' student.id %}"
+                               class="text-indigo-600 hover:text-indigo-900 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'students.delete' student.id %}"
+                               class="text-red-600 hover:text-red-900 text-lg focus:outline-none focus:ring-2 focus:ring-red-600">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <a href="{% url 'student_detail' student.id %}"
+                               class="text-indigo-600 hover:text-indigo-900 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}
