@@ -1,99 +1,95 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
 from Centre.models import Student, Teacher
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, StudentForm, TeacherForm
 
 
-def about(request):
-    """
-    About view function that renders the about.html template
-    :param request:
-    :return:  render  -  about.html template
-    """
-    return render(request, "Centre/about.html", {})
+class AboutView(View):
+    def get(self, request):
+        return render(request, "Centre/about.html", {})
 
 
-def index(request):
-    """
-    Index view function that renders the index.html template
-    :param request:
-    :return:  render  -  index.html template
-    """
-    context = {
-        "teacher": {"name": "John", "lastname": "Doe", "age": 25},
-    }
-    return render(request, "Centre/index.html", context)
+class IndexView(View):
+    def get(self, request):
+        context = {
+            "teacher": {"name": "John", "lastname": "Doe", "age": 25},
+        }
+        return render(request, "Centre/index.html", context)
 
 
-def students(request):
-    """
-    Students view function that renders the students.html template
-    :param request:
-    :return:  render  -  students.html template
-    """
-    students = Student.objects.all()
-    return render(request, "Centre/students.html", {"students": students})
+class StudentsView(View):
+    def get(self, request):
+        students = Student.objects.all()
+        return render(request, "Centre/students.html", {"students": students})
 
 
-def student_detail(request, student_id):
-    """
-    Student detail view function that renders the student_detail.html template
-    :param request:
-    :param student_id:  int  -  Student id
-    :return:  render  -  student_detail.html template
-    """
-    try:
-        student = Student.objects.get(id=student_id)
-    except Student.DoesNotExist:
-        return render(request, "Centre/errors/student_not_found.html")
-    return render(request, "Centre/student_detail.html", {"student": student})
+class StudentDetailView(View):
+    def get(self, request, student_id):
+        student = get_object_or_404(Student, id=student_id)
+        return render(request, "Centre/student_detail.html", {"student": student})
 
 
-def teachers(request):
-    """
-    Teachers view function that renders the teachers.html template
-    :param request:
-    :return:  render  -  teachers.html template
-    """
-    teachers = Teacher.objects.all()
-    return render(request, "Centre/teachers.html", {"teachers": teachers})
+class TeachersView(View):
+    def get(self, request):
+        teachers = Teacher.objects.all()
+        return render(request, "Centre/teachers.html", {"teachers": teachers})
 
 
-def teacher_detail(request, teacher_id):
-    """
-    Teacher detail view function that renders the teacher_detail.html template
-    :param request:
-    :param teacher_id:  int  -  Teacher id
-    :return:  render  -  teacher_detail.html template
-    """
-    try:
-        teacher = Teacher.objects.get(id=teacher_id)
-    except Teacher.DoesNotExist:
-        return render(request, "Centre/errors/teacher_not_found.html")
-    return render(request, "Centre/teacher_detail.html", {"teacher": teacher})
+class TeacherDetailView(View):
+    def get(self, request, teacher_id):
+        teacher = get_object_or_404(Teacher, id=teacher_id)
+        return render(request, "Centre/teacher_detail.html", {"teacher": teacher})
 
 
-def student_edit(request):
-    return None
+class StudentEditView(View):
+    def get(self, request, student_id):
+        student = get_object_or_404(Student, id=student_id)
+        form = StudentForm(instance=student)
+        return render(request, 'Centre/student_edit.html', {'form': form, 'student': student})
+
+    def post(self, request, student_id):
+        student = get_object_or_404(Student, id=student_id)
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('students')
 
 
-def student_delete(request):
-    return None
+class StudentDeleteView(View):
+    def get(self, request, student_id):
+        student = get_object_or_404(Student, id=student_id)
+        student.delete()
+        return redirect('students')
 
 
-def teacher_edit(request):
-    return None
+class TeacherEditView(View):
+    def get(self, request, teacher_id):
+        teacher = get_object_or_404(Teacher, id=teacher_id)
+        form = TeacherForm(instance=teacher)
+        return render(request, 'Centre/teacher_edit.html', {'form': form, 'teacher': teacher})
+
+    def post(self, request, teacher_id):
+        teacher = get_object_or_404(Teacher, id=teacher_id)
+        form = TeacherForm(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect('teachers')
 
 
-def teacher_delete(request):
-    return None
+class TeacherDeleteView(View):
+    def get(self, request, teacher_id):
+        teacher = get_object_or_404(Teacher, id=teacher_id)
+        teacher.delete()
+        return redirect('teachers')
 
 
-def register(request):
-    if request.method == 'POST':
+class RegisterView(View):
+    def get(self, request):
+        form = UserRegisterForm()
+        return render(request, 'registration/register.html', {'form': form})
+
+    def post(self, request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
-    else:
-        form = UserRegisterForm()
-    return render(request, 'registration/register.html', {'form': form})

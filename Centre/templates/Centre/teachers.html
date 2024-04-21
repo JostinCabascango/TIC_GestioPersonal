@@ -18,14 +18,33 @@
                 </thead>
                 <tbody>
                 {% for teacher in teachers %}
-                    <tr>
+                    <tr class="transition-colors duration-300 hover:bg-gray-200">
                         <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.name }}</td>
                         <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.lastname1 }}</td>
                         <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.lastname2 }}</td>
                         <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.email }}</td>
-                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.course }}</td>
-                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.tutor }}</td>
-                        <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ teacher.modules }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">
+                            {% for course in teacher.courses.all %}
+                                <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">{{ course.name }}</span>
+                            {% empty %}
+                                <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">Este profesor no tiene asignado ningún curso</span>
+                            {% endfor %}
+                        </td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input type="checkbox" disabled {{ teacher.tutor|yesno:"checked," }}
+                                           class="accent-pink-300 md:accent-pink-500 h-5 w-5">
+                                </div>
+                            </div>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2">
+                            {% for module in teacher.modules.all %}
+                                <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">{{ module.name }}</span>
+                            {% empty %}
+                                <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">Este profesor no tiene asignado ningún módulo</span>
+
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

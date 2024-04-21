@@ -26,11 +26,30 @@
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Course</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.course }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        {% for course in student.courses.all %}
+                            <div>
+                                <strong>{{ course.name }}</strong>
+                                <p>{{ course.description }}</p>
+                            </div>
+                        {% empty %}
+                            <span>No courses</span>
+                        {% endfor %}
+                    </dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Modules</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ student.modules }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        {% for module in student.modules.all %}
+                            <div>
+                                <strong>{{ module.name }}</strong>
+                                <p>{{ module.description }}</p>
+                                <p>Duration: {{ module.duration }}</p>
+                            </div>
+                        {% empty %}
+                            <span>No modules</span>
+                        {% endfor %}
+                    </dd>
                 </div>
             </dl>
         </div>
