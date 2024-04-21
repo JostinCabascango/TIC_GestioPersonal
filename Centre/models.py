@@ -1,40 +1,71 @@
 from django.db import models
+from .utils import str_to_timedelta
 
 
-class Student(models.Model):
+class Person(models.Model):
+    """
+    Base model for Student and Teacher
+    """
+    name = models.CharField(max_length=100)
+    lastname1 = models.CharField(max_length=100)
+    lastname2 = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        """
+        String representation of the person
+        :return:  str  -  Person name, lastname1, lastname2, and email
+        """
+        return f'{self.name} {self.lastname1} {self.lastname2} - {self.email}'
+
+
+class Course(models.Model):
+    """
+    Course model
+    """
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        """
+        String representation of the course
+        :return:  str  -  Course name
+        """
+        return self.name if self.name else 'Unnamed Course'
+
+
+class Module(models.Model):
+    """
+    Module model
+    """
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    duration = models.IntegerField()  # Change this line
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    def __str__(self):
+        """
+        String representation of the module
+        :return:  str  -  Module name
+        """
+        return self.name if self.name else 'Unnamed Module'
+
+
+class Student(Person):
     """
     Student model
     """
-    name = models.CharField(max_length=100)
-    lastname1 = models.CharField(max_length=100)
-    lastname2 = models.CharField(max_length=100)
-    email = models.EmailField()
-    course = models.CharField(max_length=100)
-    modules = models.TextField()
-
-    def __str__(self):
-        """
-        String representation of the student
-        :return:  str  -  Student name, lastname1, lastname2, and email
-        """
-        return f'{self.name} {self.lastname1} {self.lastname2} - {self.email}'
+    courses = models.ManyToManyField(Course)
+    modules = models.ManyToManyField(Module)
 
 
-class Teacher(models.Model):
+class Teacher(Person):
     """
     Teacher model
     """
-    name = models.CharField(max_length=100)
-    lastname1 = models.CharField(max_length=100)
-    lastname2 = models.CharField(max_length=100)
-    email = models.EmailField()
-    course = models.CharField(max_length=100)
+    courses = models.ManyToManyField(Course)
     tutor = models.BooleanField(default=False)
-    modules = models.TextField()
-
-    def __str__(self):
-        """
-        String representation of the teacher
-        :return:  str  -  Teacher name, lastname1, lastname2, and email
-        """
-        return f'{self.name} {self.lastname1} {self.lastname2} - {self.email}'
+    modules = models.ManyToManyField(Module)
