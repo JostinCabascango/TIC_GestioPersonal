@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %} Teacher {{ teacher.id }} {% endblock %}
-
 {% block content %}
     <div>
         <div class="px-4 sm:px-0">
@@ -27,7 +26,16 @@
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Course</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ teacher.course }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        {% for course in teacher.courses.all %}
+                            <div class="p-4 bg-white rounded-lg shadow-md mb-4">
+                                <h4 class="font-bold text-lg mb-2">{{ course.name }}</h4>
+                                <p class="text-gray-700">{{ course.description }}</p>
+                            </div>
+                        {% empty %}
+                            <span class="text-gray-500">No courses</span>
+                        {% endfor %}
+                    </dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Tutor</dt>
@@ -35,7 +43,17 @@
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Modules</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ teacher.modules }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        {% for module in teacher.modules.all %}
+                            <div class="p-4 bg-white rounded-lg shadow-md mb-4">
+                                <h4 class="font-bold text-lg mb-2">{{ module.name }}</h4>
+                                <p class="text-gray-700">{{ module.description }}</p>
+                                <p class="text-gray-700">Duration: {{ module.duration }} hours</p>
+                            </div>
+                        {% empty %}
+                            <span class="text-gray-500">No modules</span>
+                        {% endfor %}
+                    </dd>
                 </div>
             </dl>
         </div>

@@ -1,5 +1,4 @@
 from django.db import models
-from .utils import str_to_timedelta
 
 
 class Person(models.Model):

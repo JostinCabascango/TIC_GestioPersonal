@@ -93,3 +93,15 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             return redirect('login')
+
+
+class TeacherCreateView(View):
+    def get(self, request):
+        form = TeacherForm()
+        return render(request, 'Centre/teacher_create.html', {'form': form})
+
+    def post(self, request):
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teachers')
