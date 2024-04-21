@@ -8,13 +8,14 @@
             <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                 <thead>
                 <tr class="text-left">
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Name</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname1</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname2</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Email</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Course</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Tutor</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Modules</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Name</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname1</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Lastname2</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Email</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Course</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Tutor</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Modules</th>
+                    <th class="w-1/6 py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,7 +29,7 @@
                             {% for course in teacher.courses.all %}
                                 <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">{{ course.name }}</span>
                             {% empty %}
-                                <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">Este profesor no tiene asignado ningún curso</span>
+                                <span class="text-gray-600 rounded-full px-3 py-1 text-sm">Este profesor no tiene asignado ningún curso</span>
                             {% endfor %}
                         </td>
                         <td class="border-dashed border-t border-gray-200 px-3 py-2">
@@ -42,9 +43,22 @@
                             {% for module in teacher.modules.all %}
                                 <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">{{ module.name }}</span>
                             {% empty %}
-                                <span class="bg-gray-200 text-gray-600 rounded-full px-3 py-1 text-sm">Este profesor no tiene asignado ningún módulo</span>
-
+                                <span class="text-gray-600 rounded-full px-3 py-1 text-sm">Este profesor no tiene asignado ningún módulo</span>
                             {% endfor %}
+                        </td>
+                        <td class="border-dashed border-t border-gray-200 px-3 py-2 flex justify-around space-x-4">
+                            <a href="{% url 'teachers.edit' teacher.id %}"
+                               class="text-indigo-600 hover:text-indigo-900 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'teachers.delete' teacher.id %}"
+                               class="text-red-600 hover:text-red-900 text-lg focus:outline-none focus:ring-2 focus:ring-red-600">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <a href="{% url 'teacher_detail' teacher.id %}"
+                               class="text-indigo-600 hover:text-indigo-900 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <i class="fas fa-eye"></i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
