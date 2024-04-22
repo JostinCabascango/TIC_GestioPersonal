@@ -25,7 +25,11 @@ class StudentsView(View):
 
 class StudentDetailView(View):
     def get(self, request, student_id):
-        student = get_object_or_404(Student, id=student_id)
+        try:
+            student = Student.objects.get(id=student_id)
+        except Student.DoesNotExist:
+            return render(request, "Centre/errors/object_not_found.html",
+                          {"object_id": student_id, "object_type": "Student", "object_list_url": "students"})
         return render(request, "Centre/student_detail.html", {"student": student})
 
 
@@ -37,7 +41,11 @@ class TeachersView(View):
 
 class TeacherDetailView(View):
     def get(self, request, teacher_id):
-        teacher = get_object_or_404(Teacher, id=teacher_id)
+        try:
+            teacher = Teacher.objects.get(id=teacher_id)
+        except Teacher.DoesNotExist:
+            return render(request, "Centre/errors/object_not_found.html",
+                          {"object_id": teacher_id, "object_type": "Teacher", "object_list_url": "teachers"})
         return render(request, "Centre/teacher_detail.html", {"teacher": teacher})
 
 
