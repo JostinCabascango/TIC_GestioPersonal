@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %} Students {% endblock %}
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-4 text-indigo-600">Students</h1>
+        <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
+            <table class="border-collapse table-auto w-full whitespace-normal bg-white table-striped relative">
+                <thead>
+                <tr class="text-left">
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Name</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Lastname1</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Lastname2</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Email</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Course</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Modules</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr class="transition-colors duration-300 hover:bg-blue-200 hover:text-blue-800">
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ student.name }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ student.lastname1 }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ student.lastname2 }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ student.email }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">
+                            {% for course in student.courses.all %}
+                                <span class="bg-blue-200 text-blue-600 rounded-full px-3 py-1 text-sm">{{ course.name }}</span>
+                            {% empty %}
+                                <span class="text-blue-600 rounded-full px-3 py-1 text-sm">El estudiante no tiene cursos</span>
+                            {% endfor %}
+                        </td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">
+                            {% for module in student.modules.all %}
+                                <span class="bg-blue-200 text-blue-600 rounded-full px-3 py-1 text-sm">{{ module.name }}</span>
+                            {% empty %}
+                                <span class="text-blue-600 rounded-full px-3 py-1 text-sm">El estudiante no tiene módulos</span>
+                            {% endfor %}
+                        </td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto flex justify-around">
+                            <a href="{% url 'students.edit' student.id %}"
+                               class="text-indigo-600 hover:text-indigo-900 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'students.delete' student.id %}"
+                               class="text-red-600 hover:text-red-900 text-lg focus:outline-none focus:ring-2 focus:ring-red-600">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            <a href="{% url 'student_detail' student.id %}"
+                               class="text-indigo-600 hover:text-indigo-900 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

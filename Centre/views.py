@@ -20,7 +20,7 @@ class IndexView(View):
 class StudentsView(View):
     def get(self, request):
         students = Student.objects.all()
-        return render(request, "Centre/students.html", {"students": students})
+        return render(request, "Centre/students/students.html", {"students": students})
 
 
 class StudentDetailView(View):
@@ -30,30 +30,14 @@ class StudentDetailView(View):
         except Student.DoesNotExist:
             return render(request, "Centre/errors/object_not_found.html",
                           {"object_id": student_id, "object_type": "Student", "object_list_url": "students"})
-        return render(request, "Centre/student_detail.html", {"student": student})
-
-
-class TeachersView(View):
-    def get(self, request):
-        teachers = Teacher.objects.all()
-        return render(request, "Centre/teachers.html", {"teachers": teachers})
-
-
-class TeacherDetailView(View):
-    def get(self, request, teacher_id):
-        try:
-            teacher = Teacher.objects.get(id=teacher_id)
-        except Teacher.DoesNotExist:
-            return render(request, "Centre/errors/object_not_found.html",
-                          {"object_id": teacher_id, "object_type": "Teacher", "object_list_url": "teachers"})
-        return render(request, "Centre/teacher_detail.html", {"teacher": teacher})
+        return render(request, "Centre/students/student_detail.html", {"student": student})
 
 
 class StudentEditView(View):
     def get(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
         form = StudentForm(instance=student)
-        return render(request, 'Centre/student_edit.html', {'form': form, 'student': student})
+        return render(request, 'Centre/students/student_edit.html', {'form': form, 'student': student})
 
     def post(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
@@ -66,15 +50,49 @@ class StudentEditView(View):
 class StudentDeleteView(View):
     def get(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
+        return_url = 'students'
+        return render(request, 'Centre/confirm_delete.html', {'object': student, 'return_url': return_url})
+
+    def post(self, request, student_id):
+        student = get_object_or_404(Student, id=student_id)
         student.delete()
-        return redirect('students')
+        return_url = 'students'
+        return redirect(return_url)
+
+
+class StudentCreateView(View):
+    def get(self, request):
+        form = StudentForm()
+        return render(request, 'Centre/students/student_create.html', {'form': form})
+
+    def post(self, request):
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('students')
+
+
+class TeachersView(View):
+    def get(self, request):
+        teachers = Teacher.objects.all()
+        return render(request, "Centre/teachers/teachers.html", {"teachers": teachers})
+
+
+class TeacherDetailView(View):
+    def get(self, request, teacher_id):
+        try:
+            teacher = Teacher.objects.get(id=teacher_id)
+        except Teacher.DoesNotExist:
+            return render(request, "Centre/errors/object_not_found.html",
+                          {"object_id": teacher_id, "object_type": "Teacher", "object_list_url": "teachers"})
+        return render(request, "Centre/teachers/teacher_detail.html", {"teacher": teacher})
 
 
 class TeacherEditView(View):
     def get(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
         form = TeacherForm(instance=teacher)
-        return render(request, 'Centre/teacher_edit.html', {'form': form, 'teacher': teacher})
+        return render(request, 'Centre/teachers/teacher_edit.html', {'form': form, 'teacher': teacher})
 
     def post(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
@@ -87,8 +105,26 @@ class TeacherEditView(View):
 class TeacherDeleteView(View):
     def get(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
+        return_url = 'teachers'
+        return render(request, 'Centre/confirm_delete.html', {'object': teacher, 'return_url': return_url})
+
+    def post(self, request, teacher_id):
+        teacher = get_object_or_404(Teacher, id=teacher_id)
         teacher.delete()
-        return redirect('teachers')
+        return_url = 'teachers'
+        return redirect(return_url)
+
+
+class TeacherCreateView(View):
+    def get(self, request):
+        form = TeacherForm()
+        return render(request, 'Centre/teachers/teacher_create.html', {'form': form})
+
+    def post(self, request):
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('teachers')
 
 
 class RegisterView(View):
@@ -101,15 +137,3 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             return redirect('login')
-
-
-class TeacherCreateView(View):
-    def get(self, request):
-        form = TeacherForm()
-        return render(request, 'Centre/teacher_create.html', {'form': form})
-
-    def post(self, request):
-        form = TeacherForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('teachers')
