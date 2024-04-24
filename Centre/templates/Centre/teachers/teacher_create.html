@@ -1,12 +1,101 @@
 {% extends "base.html" %}
 {% block title %} Create a new post {% endblock %}
 {% block content %}
-    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-5">
-        <h1 class="text-2xl font-bold mb-3">Create a new post</h1>
-        <form method="post" class="space-y-3">
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md mt-5">
+        <h1 class="text-2xl font-bold mb-6 text-center">Create a new post</h1>
+        <form method="post" class="space-y-6">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500">Submit</button>
+            <!--Name-->
+            <div class="space-y-2">
+                <label for="{{ form.name.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.name.label }}</label>
+                <input id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}"
+                       value="{{ form.name.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.name.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.name.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.name.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <!--Last Name 1-->
+            <div class="space-y-2">
+                <label for="{{ form.lastname1.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.lastname1.label }}</label>
+                <input id="{{ form.lastname1.id_for_label }}" name="{{ form.lastname1.html_name }}"
+                       value="{{ form.lastname1.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.lastname1.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.lastname1.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.lastname1.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <!--Last Name 2-->
+            <div class="space-y-2">
+                <label for="{{ form.lastname2.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.lastname2.label }}</label>
+                <input id="{{ form.lastname2.id_for_label }}" name="{{ form.lastname2.html_name }}"
+                       value="{{ form.lastname2.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.lastname2.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.lastname2.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.lastname2.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <!--Email-->
+            <div class="space-y-2">
+                <label for="{{ form.email.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.email.label }}</label>
+                <input id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}"
+                       value="{{ form.email.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.email.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.email.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.email.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <!--Courses-->
+            <div class="space-y-2">
+                <label for="{{ form.courses.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.courses.label }}</label>
+                <select id="{{ form.courses.id_for_label }}" name="{{ form.courses.html_name }}"
+                        class="mt-1 block w-full py-2 px-3 border {{ form.courses.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    {% for option in form.courses.field.choices %}
+                        <option value="{{ option.0 }}"
+                                {% if option.0 in form.courses.value %}selected{% endif %}>{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.courses.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.courses.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <!--Tutor -->
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    <input id="{{ form.tutor.id_for_label }}" type="checkbox" name="{{ form.tutor.html_name }}"
+                           class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                           {% if form.tutor.value %}checked{% endif %}>
+                    <label for="{{ form.tutor.id_for_label }}"
+                           class="ml-2 block text-sm font-medium text-gray-700">{{ form.tutor.label }}</label>
+                </div>
+                {% if form.tutor.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.tutor.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <!--Modules-->
+            <div class="space-y-2">
+                <label for="{{ form.modules.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.modules.label }}</label>
+                <select id="{{ form.modules.id_for_label }}" name="{{ form.modules.html_name }}"
+                        class="mt-1 block w-full py-2 px-3 border {{ form.modules.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    {% for option in form.modules.field.choices %}
+                        <option value="{{ option.0 }}"
+                                {% if option.0 in form.modules.value %}selected{% endif %}>{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.modules.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.modules.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+            <button type="submit"
+                    class="w-full py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Submit
+            </button>
         </form>
     </div>
 {% endblock %}

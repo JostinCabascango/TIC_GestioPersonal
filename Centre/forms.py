@@ -41,12 +41,6 @@ class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = ['name', 'lastname1', 'lastname2', 'email', 'courses', 'tutor', 'modules']
-        widgets = {
-            'tutor': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'courses': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'modules': forms.SelectMultiple(attrs={'class': 'form-control'}),
-
-        }
 
 
 class TeacherModuleForm(forms.ModelForm):

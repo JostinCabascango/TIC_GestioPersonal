@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from Centre.models import Student, Teacher
@@ -33,7 +34,7 @@ class StudentDetailView(View):
         return render(request, "Centre/students/student_detail.html", {"student": student})
 
 
-class StudentEditView(View):
+class StudentEditView(LoginRequiredMixin, View):
     def get(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
         form = StudentForm(instance=student)
@@ -47,11 +48,11 @@ class StudentEditView(View):
             return redirect('students')
 
 
-class StudentDeleteView(View):
+class StudentDeleteView(LoginRequiredMixin, View):
     def get(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
         return_url = 'students'
-        return render(request, 'Centre/confirm_delete.html', {'object': student, 'return_url': return_url})
+        return render(request, 'Centre/Modal/confirm_delete.html', {'object': student, 'return_url': return_url})
 
     def post(self, request, student_id):
         student = get_object_or_404(Student, id=student_id)
@@ -60,7 +61,7 @@ class StudentDeleteView(View):
         return redirect(return_url)
 
 
-class StudentCreateView(View):
+class StudentCreateView(LoginRequiredMixin, View):
     def get(self, request):
         form = StudentForm()
         return render(request, 'Centre/students/student_create.html', {'form': form})
@@ -88,7 +89,7 @@ class TeacherDetailView(View):
         return render(request, "Centre/teachers/teacher_detail.html", {"teacher": teacher})
 
 
-class TeacherEditView(View):
+class TeacherEditView(LoginRequiredMixin, View):
     def get(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
         form = TeacherForm(instance=teacher)
@@ -102,11 +103,11 @@ class TeacherEditView(View):
             return redirect('teachers')
 
 
-class TeacherDeleteView(View):
+class TeacherDeleteView(LoginRequiredMixin, View):
     def get(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
         return_url = 'teachers'
-        return render(request, 'Centre/confirm_delete.html', {'object': teacher, 'return_url': return_url})
+        return render(request, 'Centre/Modal/confirm_delete.html', {'object': teacher, 'return_url': return_url})
 
     def post(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
@@ -115,7 +116,7 @@ class TeacherDeleteView(View):
         return redirect(return_url)
 
 
-class TeacherCreateView(View):
+class TeacherCreateView(LoginRequiredMixin, View):
     def get(self, request):
         form = TeacherForm()
         return render(request, 'Centre/teachers/teacher_create.html', {'form': form})
@@ -125,6 +126,8 @@ class TeacherCreateView(View):
         if form.is_valid():
             form.save()
             return redirect('teachers')
+        else:
+            return render(request, 'Centre/teachers/teacher_create.html', {'form': form})
 
 
 class RegisterView(View):

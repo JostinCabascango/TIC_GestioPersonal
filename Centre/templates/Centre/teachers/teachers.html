@@ -2,19 +2,37 @@
 {% block title %} Teachers {% endblock %}
 {% block content %}
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold mb-4 text-indigo-600">Teachers</h1>
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-4xl font-bold mb-4 text-indigo-600">Teachers</h1>
+            <a href="{% url 'teachers.create' %}"
+               class="inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Create
+                Teacher</a>
+        </div>
         <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
             <table class="border-collapse table-auto w-full whitespace-normal bg-white table-striped relative">
                 <thead>
                 <tr class="text-left">
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Name</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Lastname1</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Lastname2</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Email</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Course</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Tutor</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Modules</th>
-                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Actions</th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Name
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">
+                        Lastname1
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">
+                        Lastname2
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Email
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">
+                        Course
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">Tutor
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">
+                        Modules
+                    </th>
+                    <th class="py-4 px-6 sticky top-0 border-b border-gray-200 bg-gray-100 text-gray-600 w-auto">
+                        Actions
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
