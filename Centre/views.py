@@ -46,6 +46,8 @@ class StudentEditView(LoginRequiredMixin, View):
         if form.is_valid():
             form.save()
             return redirect('students')
+        else:
+            return render(request, 'Centre/students/student_edit.html', {'form': form, 'student': student})
 
 
 class StudentDeleteView(LoginRequiredMixin, View):
@@ -71,6 +73,8 @@ class StudentCreateView(LoginRequiredMixin, View):
         if form.is_valid():
             form.save()
             return redirect('students')
+        else:
+            return render(request, 'Centre/students/student_create.html', {'form': form})
 
 
 class TeachersView(View):
@@ -101,6 +105,8 @@ class TeacherEditView(LoginRequiredMixin, View):
         if form.is_valid():
             form.save()
             return redirect('teachers')
+        else:
+            return render(request, 'Centre/teachers/teacher_edit.html', {'form': form, 'teacher': teacher})
 
 
 class TeacherDeleteView(LoginRequiredMixin, View):

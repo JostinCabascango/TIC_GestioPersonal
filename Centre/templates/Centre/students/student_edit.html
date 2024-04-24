@@ -1,62 +1,88 @@
 {% extends "base.html" %}
+{% block title %} Edit Teacher {% endblock %}
 {% block content %}
-    <div class="container mx-auto px-4 sm:px-6 md:px-8">
-        <h1 class="text-2xl font-bold mb-4">Edit Student</h1>
-        <form method="post" action="{% url 'students.edit' student.id %}"
-              class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md mt-5">
+        <h1 class="text-2xl font-bold mb-6 text-center">Edit Student</h1>
+        <form method="post" class="space-y-6">
             {% csrf_token %}
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-                    Name
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="name" type="text" placeholder="Name" value="{{ student.name }}">
+            <!--Name-->
+            <div class="space-y-2">
+                <label for="{{ form.name.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.name.label }}</label>
+                <input id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}"
+                       value="{{ form.name.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.name.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.name.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.name.errors|join:", " }}</div>
+                {% endif %}
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname1">
-                    LastName 1
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="lastname1" type="text" placeholder="LastName 1" value="{{ student.lastname1 }}">
+            <!--Last Name 1-->
+            <div class="space-y-2">
+                <label for="{{ form.lastname1.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.lastname1.label }}</label>
+                <input id="{{ form.lastname1.id_for_label }}" name="{{ form.lastname1.html_name }}"
+                       value="{{ form.lastname1.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.lastname1.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.lastname1.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.lastname1.errors|join:", " }}</div>
+                {% endif %}
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname2">
-                    LastName 2
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="lastname2" type="text" placeholder="LastName 2" value="{{ student.lastname2 }}">
+            <!--Last Name 2-->
+            <div class="space-y-2">
+                <label for="{{ form.lastname2.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.lastname2.label }}</label>
+                <input id="{{ form.lastname2.id_for_label }}" name="{{ form.lastname2.html_name }}"
+                       value="{{ form.lastname2.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.lastname2.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.lastname2.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.lastname2.errors|join:", " }}</div>
+                {% endif %}
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                    Email
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="email" type="email" placeholder="Email" value="{{ student.email }}">
+            <!--Email-->
+            <div class="space-y-2">
+                <label for="{{ form.email.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.email.label }}</label>
+                <input id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}"
+                       value="{{ form.email.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.email.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.email.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.email.errors|join:", " }}</div>
+                {% endif %}
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="course">
-                    Course
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="course" type="text" placeholder="Course" value="{{ student.courses }}">
+            <!--Courses-->
+            <div class="space-y-2">
+                <label for="{{ form.courses.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.courses.label }}</label>
+                <select id="{{ form.courses.id_for_label }}" name="{{ form.courses.html_name }}"
+                        class="mt-1 block w-full py-2 px-3 border {{ form.courses.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    {% for option in form.courses.field.choices %}
+                        <option value="{{ option.0 }}"
+                                {% if option.0 in form.courses.value %}selected{% endif %}>{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.courses.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.courses.errors|join:", " }}</div>
+                {% endif %}
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="modules">
-                    Modules
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="modules" type="text" placeholder="Modules" value="{{ student.modules }}">
+            <!--Modules-->
+            <div class="space-y-2">
+                <label for="{{ form.modules.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.modules.label }}</label>
+                <select id="{{ form.modules.id_for_label }}" name="{{ form.modules.html_name }}"
+                        class="mt-1 block w-full py-2 px-3 border {{ form.modules.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    {% for option in form.modules.field.choices %}
+                        <option value="{{ option.0 }}"
+                                {% if option.0 in form.modules.value %}selected{% endif %}>{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.modules.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.modules.errors|join:", " }}</div>
+                {% endif %}
             </div>
-            <div class="flex items-center justify-between">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit">
-                    Update
-                </button>
-                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                   href="{% url 'students' %}">
-                    Cancel
-                </a>
-            </div>
+            <button type="submit"
+                    class="w-full py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Update
+            </button>
         </form>
     </div>
 {% endblock %}
