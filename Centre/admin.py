@@ -15,12 +15,12 @@ class ModuleAdmin(admin.ModelAdmin):
 
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname1', 'lastname2', 'email')
+    list_display = ('name', 'lastname1', 'lastname2', 'email', 'role')
     filter_horizontal = ('courses', 'modules')
 
 
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname1', 'lastname2', 'email', 'tutor')
+    list_display = ('name', 'lastname1', 'lastname2', 'email', 'tutor', 'role')
     filter_horizontal = ('courses', 'modules')
 
 
