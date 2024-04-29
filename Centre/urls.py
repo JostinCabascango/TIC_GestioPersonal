@@ -6,7 +6,7 @@ from Centre.views import AboutView, IndexView, RegisterView, StudentsView, Stude
 
 urlpatterns = [
     path("about/", AboutView.as_view(), name="about"),
-    path("index/", IndexView.as_view(), name="index"),
+    path("", IndexView.as_view(), name="index"),
     path("register/", RegisterView.as_view(), name="register"),
 
     path("students/", StudentsView.as_view(), name="students"),
