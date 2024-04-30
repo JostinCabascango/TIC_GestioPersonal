@@ -1,20 +1,20 @@
 from django.db import models
 
+ROLE_STUDENT = 'ST'
+ROLE_TEACHER = 'TE'
+ROLE_CHOICES = [
+    (ROLE_STUDENT, 'Student'),
+    (ROLE_TEACHER, 'Teacher'),
+]
+
 
 class Person(models.Model):
     """
     Base model for Student and Teacher
     """
-    STUDENT = 'ST'
-    TEACHER = 'TE'
-    ROLE_CHOICES = [
-        (STUDENT, 'Student'),
-        (TEACHER, 'Teacher'),
-    ]
-
-    name = models.CharField(max_length=100)
-    lastname1 = models.CharField(max_length=100)
-    lastname2 = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    first_lastname = models.CharField(max_length=100)
+    second_lastname = models.CharField(max_length=100)
     email = models.EmailField()
     role = models.CharField(max_length=2, choices=ROLE_CHOICES, blank=True)
 
@@ -26,7 +26,7 @@ class Person(models.Model):
         String representation of the person
         :return:  str  -  Person name, lastname1, lastname2, and email
         """
-        return f'Name: {self.name} {self.lastname1} {self.lastname2}, Email: {self.email}, Role: {self.get_role_display()}'
+        return f'Name: {self.first_name} {self.first_lastname} {self.second_lastname}, Email: {self.email}, Role: {self.get_role_display()}'
 
 
 class Course(models.Model):
@@ -50,7 +50,7 @@ class Module(models.Model):
     """
     name = models.CharField(max_length=100)
     description = models.TextField()
-    duration = models.IntegerField()  # Change this line
+    duration = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -69,7 +69,7 @@ class Student(Person):
     modules = models.ManyToManyField(Module)
 
     def save(self, *args, **kwargs):
-        self.role = self.STUDENT
+        self.role = ROLE_STUDENT
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -89,7 +89,7 @@ class Teacher(Person):
     modules = models.ManyToManyField(Module)
 
     def save(self, *args, **kwargs):
-        self.role = self.TEACHER
+        self.role = ROLE_TEACHER
         super().save(*args, **kwargs)
 
     def __str__(self):

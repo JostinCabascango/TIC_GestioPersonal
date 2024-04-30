@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Person, Course, Module, Student, Teacher
+from .models import Course, Module, Student, Teacher
 
 
 class PersonAdmin(admin.ModelAdmin):
@@ -15,12 +15,12 @@ class ModuleAdmin(admin.ModelAdmin):
 
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname1', 'lastname2', 'email', 'role')
+    list_display = ('first_name', 'first_name', 'second_lastname', 'email', 'role')
     filter_horizontal = ('courses', 'modules')
 
 
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname1', 'lastname2', 'email', 'tutor', 'role')
+    list_display = ('first_name', 'first_name', 'second_lastname', 'email', 'tutor', 'role')
     filter_horizontal = ('courses', 'modules')
 
 

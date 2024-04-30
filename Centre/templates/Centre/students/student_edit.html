@@ -7,35 +7,35 @@
             {% csrf_token %}
             <!--Name-->
             <div class="space-y-2">
-                <label for="{{ form.name.id_for_label }}"
-                       class="block text-sm font-medium text-gray-700">{{ form.name.label }}</label>
-                <input id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}"
+                <label for="{{ form.first_name.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.first_name.label }}</label>
+                <input id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.html_name }}"
                        value="{{ form.name.value|default_if_none:'' }}"
-                       class="mt-1 block w-full py-2 px-3 border {{ form.name.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                {% if form.name.errors %}
-                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.name.errors|join:", " }}</div>
+                       class="mt-1 block w-full py-2 px-3 border {{ form.first_name.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.first_name.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.first_name.errors|join:", " }}</div>
                 {% endif %}
             </div>
             <!--Last Name 1-->
             <div class="space-y-2">
-                <label for="{{ form.lastname1.id_for_label }}"
-                       class="block text-sm font-medium text-gray-700">{{ form.lastname1.label }}</label>
-                <input id="{{ form.lastname1.id_for_label }}" name="{{ form.lastname1.html_name }}"
-                       value="{{ form.lastname1.value|default_if_none:'' }}"
-                       class="mt-1 block w-full py-2 px-3 border {{ form.lastname1.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                {% if form.lastname1.errors %}
-                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.lastname1.errors|join:", " }}</div>
+                <label for="{{ form.first_lastname.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.first_lastname.label }}</label>
+                <input id="{{ form.first_lastname.id_for_label }}" name="{{ form.first_lastname.html_name }}"
+                       value="{{ form.first_lastname.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.first_lastname.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.first_lastname.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.first_lastname.errors|join:", " }}</div>
                 {% endif %}
             </div>
             <!--Last Name 2-->
             <div class="space-y-2">
-                <label for="{{ form.lastname2.id_for_label }}"
-                       class="block text-sm font-medium text-gray-700">{{ form.lastname2.label }}</label>
-                <input id="{{ form.lastname2.id_for_label }}" name="{{ form.lastname2.html_name }}"
-                       value="{{ form.lastname2.value|default_if_none:'' }}"
-                       class="mt-1 block w-full py-2 px-3 border {{ form.lastname2.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                {% if form.lastname2.errors %}
-                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.lastname2.errors|join:", " }}</div>
+                <label for="{{ form.second_lastname.id_for_label }}"
+                       class="block text-sm font-medium text-gray-700">{{ form.second_lastname.label }}</label>
+                <input id="{{ form.second_lastname.id_for_label }}" name="{{ form.second_lastname.html_name }}"
+                       value="{{ form.second_lastname.value|default_if_none:'' }}"
+                       class="mt-1 block w-full py-2 px-3 border {{ form.second_lastname.errors|yesno:'border-red-500,border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {% if form.second_lastname.errors %}
+                    <div class="text-red-500 text-base mt-2 bg-red-100 p-3 rounded-lg">{{ form.second_lastname.errors|join:", " }}</div>
                 {% endif %}
             </div>
             <!--Email-->

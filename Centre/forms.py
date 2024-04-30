@@ -16,7 +16,7 @@ class UserRegisterForm(UserCreationForm):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['name', 'lastname1', 'lastname2', 'email', 'courses', 'modules']
+        fields = ['first_name', 'first_lastname', 'second_lastname', 'email', 'courses', 'modules']
 
 
 class ModuleForm(forms.ModelForm):
@@ -40,7 +40,7 @@ class StudentCourseForm(forms.ModelForm):
 class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
-        fields = ['name', 'lastname1', 'lastname2', 'email', 'courses', 'tutor', 'modules']
+        fields = ['first_name', 'first_lastname', 'second_lastname', 'email', 'courses', 'tutor', 'modules']
 
 
 class TeacherModuleForm(forms.ModelForm):

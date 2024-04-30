@@ -38,9 +38,9 @@
                 <tbody>
                 {% for teacher in teachers %}
                     <tr class="transition-colors duration-300 hover:bg-blue-200 hover:text-blue-800">
-                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.name }}</td>
-                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.lastname1 }}</td>
-                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.lastname2 }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.first_name }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.first_lastname }}</td>
+                        <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.second_lastname }}</td>
                         <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">{{ teacher.email }}</td>
                         <td class="border-dashed border-t border-gray-200 px-6 py-4 w-auto">
                             {% for course in teacher.courses.all %}
