@@ -2,7 +2,7 @@ from django.urls import path
 
 from Centre.views import AboutView, IndexView, RegisterView, StudentsView, StudentDetailView, StudentEditView, \
     StudentDeleteView, TeachersView, TeacherEditView, TeacherDetailView, TeacherDeleteView, TeacherCreateView, \
-    StudentCreateView
+    StudentCreateView, ModulesByCourseView
 
 urlpatterns = [
     path("about/", AboutView.as_view(), name="about"),
@@ -20,4 +20,7 @@ urlpatterns = [
     path("teachers/<int:teacher_id>/", TeacherDetailView.as_view(), name="teacher_detail"),
     path("teachers/<int:teacher_id>/edit/", TeacherEditView.as_view(), name="teachers.edit"),
     path("teachers/<int:teacher_id>/delete/", TeacherDeleteView.as_view(), name="teachers.delete"),
+
+    path('get-modules/<int:course_id>/', ModulesByCourseView.as_view(), name='get-modules'),
+
 ]

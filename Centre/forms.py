@@ -16,7 +16,12 @@ class UserRegisterForm(UserCreationForm):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['first_name', 'first_lastname', 'second_lastname', 'email', 'courses', 'modules']
+        fields = ['first_name', 'first_lastname', 'second_lastname', 'email', 'courses', 'modules', 'role']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['role'].initial = 'ST'
+        self.fields['role'].widget.attrs['disabled'] = True
 
 
 class ModuleForm(forms.ModelForm):

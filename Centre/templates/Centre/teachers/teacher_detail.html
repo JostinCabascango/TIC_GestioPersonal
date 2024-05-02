@@ -25,6 +25,10 @@
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ teacher.email }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Role</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-900 bg-gray-200 p-2 rounded sm:col-span-2 sm:mt-0">{{ teacher.get_role_display }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Course</dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         {% for course in teacher.courses.all %}
@@ -39,7 +43,7 @@
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Tutor</dt>
-                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ teacher.tutor }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-900 bg-gray-200 p-2 rounded sm:col-span-2 sm:mt-0">{{ teacher.tutor }}</dd>
                 </div>
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-sm font-medium leading-6 text-gray-900">Modules</dt>

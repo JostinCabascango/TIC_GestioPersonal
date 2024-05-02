@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from Centre.models import Student, Teacher
+from Centre.models import Student, Teacher, Module
 from .forms import UserRegisterForm, StudentForm, TeacherForm
 
 
@@ -118,7 +119,7 @@ class TeacherDeleteView(LoginRequiredMixin, View):
     def post(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
         teacher.delete()
-        return_url = 'teachers'
+        return_url = 'teacvhers'
         return redirect(return_url)
 
 
@@ -146,3 +147,12 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             return redirect('login')
+
+
+class ModulesByCourseView(View):
+    def get(self, request, course_id):
+        try:
+            modules = Module.objects.filter(course_id=course_id).values('id', 'name', 'description')
+            return JsonResponse(list(modules), status=200, safe=False)
+        except Module.DoesNotExist:
+            return JsonResponse({}, status=200)
