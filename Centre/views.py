@@ -119,7 +119,7 @@ class TeacherDeleteView(LoginRequiredMixin, View):
     def post(self, request, teacher_id):
         teacher = get_object_or_404(Teacher, id=teacher_id)
         teacher.delete()
-        return_url = 'teacvhers'
+        return_url = 'teachers'
         return redirect(return_url)
 
 
@@ -147,6 +147,8 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             return redirect('login')
+        else:
+            return render(request, 'registration/register.html', {'form': form})
 
 
 class ModulesByCourseView(View):
